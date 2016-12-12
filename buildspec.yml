@@ -3,6 +3,6 @@ version: 0.1
 phases:
   build:
     commands:
-      - echo ${AWS_ACCOUNT}
-      - echo ${AWS_ROLE}
+      - terraform remote config -backend=s3 -backend-config="bucket=${TERRAFORM_STATE_BUCKET}" -backend-config="key=${REGION}/${PROJECT}/${ENVIRONMENT}/${MODULE}/terraform.tfstate" -backend-config="region=${TERRAFORM_STATE_BUCKET_REGION}"
+      - terraform get
       - terraform plan
